@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"net/http"
 	"os"
 	"strconv"
 	"time"
@@ -55,16 +54,6 @@ func UploadS3() error {
 	}
 	defer file.Close()
 
-	fileInfo, _ := file.Stat()
-
-	fileBytes := make([]byte, fileInfo.Size())
-	_, err = file.Read(fileBytes)
-	if err != nil {
-		return err
-	}
-
-	fileType := http.DetectContentType(fileBytes)
-
 	today := time.Now().Format("2006-01-02")
 	bucket := os.Getenv("BUCKET")
 	key := os.Getenv("KEY")
@@ -72,10 +61,10 @@ func UploadS3() error {
 	key = fmt.Sprintf("%s/%s/slo_history.json", key, today)
 
 	putObjectInput := &s3.PutObjectInput{
-		Bucket:      aws.String(bucket),
-		Key:         aws.String(key),
-		Body:        file,
-		ContentType: aws.String(fileType),
+		Bucket: aws.String(bucket),
+		Key:    aws.String(key),
+		Body:   file,
+		//ContentType: aws.String(fileType),
 	}
 
 	_, err = svc.PutObject(putObjectInput)

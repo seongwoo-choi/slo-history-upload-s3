@@ -11,6 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"

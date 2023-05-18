@@ -27,12 +27,16 @@ func FileUploadS3(responseContent []byte) error {
 	uploader := s3manager.NewUploader(sess)
 
 	today := time.Now().Format("2006-01-02")
+	s := strings.Split(today, "-")
+	y := s[0]
+	m := s[1]
+	d := s[2]
 
 	sloHistoryReader := bytes.NewReader(responseContent)
 
 	_, err := uploader.Upload(&s3manager.UploadInput{
 		Bucket: aws.String(os.Getenv("BUCKET")),
-		Key:    aws.String(fmt.Sprintf("%s/%s/slo_history.json", os.Getenv("KEY"), today)),
+		Key:    aws.String(fmt.Sprintf("%s/%s/%s/%s/slo_history.json", os.Getenv("KEY"), y, m, d)),
 		Body:   sloHistoryReader,
 	})
 

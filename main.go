@@ -60,12 +60,12 @@ func GetSloHistory(sloId string, day int) error {
 
 	fmt.Println(string(responseContent))
 
-	//err = FileUploadS3(responseContent)
-	//if err != nil {
-	//	return err
-	//}
-	//
-	//fmt.Println("파일 업로드 완료.")
+	err = FileUploadS3(responseContent)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("파일 업로드 완료.")
 
 	return nil
 }

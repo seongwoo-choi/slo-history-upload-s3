@@ -58,12 +58,14 @@ func GetSloHistory(sloId string, day int) error {
 
 	responseContent, _ := json.MarshalIndent(resp, "", "  ")
 
-	err = FileUploadS3(responseContent)
-	if err != nil {
-		return err
-	}
+	fmt.Println(string(responseContent))
 
-	fmt.Println("파일 업로드 완료.")
+	//err = FileUploadS3(responseContent)
+	//if err != nil {
+	//	return err
+	//}
+	//
+	//fmt.Println("파일 업로드 완료.")
 
 	return nil
 }

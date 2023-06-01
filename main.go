@@ -54,15 +54,15 @@ func GetYearMonthDay() (string, string, string) {
 	return y, m, d
 }
 
-func SendMail(sloId string) error {
+func SendMail() error {
 	y, m, _ := GetYearMonthDay()
-
 	iY, _ := strconv.Atoi(y)
 	iM, _ := strconv.Atoi(m)
 	firstDay, lastDay := getMonthRange(iY, iM)
 	monthNumber := int(firstDay.Month())
 	firstDayMillisecs, lastDayMillisecs := getMilliseconds(firstDay, lastDay)
-	dashBoardURL := fmt.Sprintf("https://app.datadoghq.com/dashboard/%v/slo-slo?from_ts=%v&to_ts=%v&live=true", sloId, firstDayMillisecs, lastDayMillisecs)
+	dashboardId := os.Getenv("DASHBOARD_ID")
+	dashBoardURL := fmt.Sprintf("https://app.datadoghq.com/dashboard/%v/slo-slo?from_ts=%v&to_ts=%v&live=true", dashboardId, firstDayMillisecs, lastDayMillisecs)
 
 	recipients := strings.Split(os.Getenv("RECIPIENT"), ",")
 	subject := fmt.Sprintf("%v월 무신사 플랫폼서비스 SLO 요약 리포트", monthNumber)
@@ -170,7 +170,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	if err := SendMail(sloId); err != nil {
+	if err := SendMail(); err != nil {
 		fmt.Println(err)
 	}
 }

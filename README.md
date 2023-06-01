@@ -26,6 +26,9 @@
 - RECIPIENT
   - SLO 대시보드 링크를 전송할 이메일 주소입니다.
     - ex) "test1@example.com, test2@example.com, test3@example.com"
+- DASHBOARD_ID
+  - SLO 대시보드 링크를 전송할 대시보드 ID 입니다.
+    - ex) 123456
 
 
 #### 동작

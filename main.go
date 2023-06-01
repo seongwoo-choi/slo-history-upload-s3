@@ -166,6 +166,7 @@ func main() {
 	// SLO ID 환경 변수 처리
 	sloId := os.Getenv("SLO_ID")
 	day, _ := strconv.Atoi(os.Getenv("DAY"))
+
 	if _, err := GetSloHistory(sloId, day); err != nil {
 		fmt.Println(err)
 	}

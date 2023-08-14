@@ -65,7 +65,7 @@ func SendMail() error {
 	dashBoardURL := fmt.Sprintf("https://app.datadoghq.com/dashboard/%v/slo-slo?from_ts=%v&to_ts=%v&live=true", dashboardId, firstDayMillisecs, lastDayMillisecs)
 
 	recipients := strings.Split(os.Getenv("RECIPIENT"), ",")
-	subject := fmt.Sprintf("%v월 무신사 플랫폼서비스 SLO 요약 리포트", monthNumber)
+	subject := "무신사 플랫폼서비스 SLO 요약 리포트"
 	htmlBody := fmt.Sprintf("<h1>%v월 무신사 플랫폼 서비스 SLO 요약 리포트</h1>", monthNumber) + fmt.Sprintf("<h2><a href=%v>무신사 플랫폼 서비스 SLO 요약 대시보드입니다.</a></h2>", dashBoardURL)
 
 	sess, _ := session.NewSession(&aws.Config{
